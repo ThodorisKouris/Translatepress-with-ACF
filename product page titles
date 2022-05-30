@@ -1,7 +1,7 @@
 //ενημέρωση τίτλου στην σελίδα προιόντος
 //το παρακάτω κομμάτι κώδικα είναι για EL και US γλώσσες
 //θα πρέπει να έχεις δημιουργήσει το CF με όνομα title_en
-
+//αντί για h3 μπορείς να χρησιμοποιήσεις την class από το theme σου
 add_action('titlesonproductpage', 'woocommerce_shop_single_title');
     function titlesonproductpage () {   
         
