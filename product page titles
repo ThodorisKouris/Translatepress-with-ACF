@@ -1,0 +1,18 @@
+//ενημέρωση τίτλου στην σελίδα προιόντος
+//το παρακάτω κομμάτι κώδικα είναι για EL και US γλώσσες
+//θα πρέπει να έχεις δημιουργήσει το CF με όνομα title_en
+
+add_action('titlesonproductpage', 'woocommerce_shop_single_title');
+    function titlesonproductpage () {   
+        
+       $current_language = get_locale();
+
+       if( $current_language == 'el' ){
+        
+        echo '<h3>' .get_the_title($item['id']). '</h3>' ;
+       }
+      
+       if( $current_language == 'en_US' ){
+         echo do_shortcode ('<h3>[acf field="title_en"]</h3>');
+        }
+}
