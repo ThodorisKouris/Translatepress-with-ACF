@@ -1,0 +1,37 @@
+//ενημέρωση περιγραφής στην σελίδα προιόντος
+//το παρακάτω κομμάτι κώδικα είναι για EL και US γλώσσες
+//θα πρέπει να έχεις δημιουργήσει το CF με όνομα description_en
+
+//product_description shortcode
+add_shortcode( 'product_description', 'display_product_description' );
+function display_product_description( $atts ){
+    $atts = shortcode_atts( array('id' => get_the_id(), ), $atts, 'product_description' );
+
+    global $product;
+
+    if ( ! is_a( $product, 'WC_Product') )
+        $product = wc_get_product($atts['id']);
+
+    return $product->get_description();
+}
+
+
+
+//update product_description product page
+add_action( 'the_content', 'description_on_product_page' );
+function description_on_product_page($content )    
+    {
+    
+    $current_language = get_locale();
+
+       if( $current_language == 'el' ){
+        echo do_shortcode ('[product_description]');
+      }
+      
+       if( $current_language == 'en_US' ){
+         echo do_shortcode ('[acf field="description_en"]');
+        }
+        //σε περίπτωση που σου βγάζει ξανά την περιγραφή βρες την class από το css και κάνε display: none;
+        // ή δες εάν λειτουργεί χωρίς το return $content;
+        return $content;
+}    
