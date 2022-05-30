@@ -1,0 +1,31 @@
+//ενημέρωση τίτλου στον κατάλογο
+//το παρακάτω κομμάτι κώδικα είναι για EL και US γλώσσες
+//θα πρέπει να έχεις δημιουργήσει το CF με όνομα title_en
+
+add_action('woocommerce_shop_loop_item_title','titlesonproductcatalog',10);
+    function titlesonproductcatalog () {   
+        
+    $current_language = get_locale();
+
+       if( $current_language == 'el' ){
+        echo get_the_title($item['id']);
+       }
+      
+       if( $current_language == 'en_US' ){
+         echo do_shortcode ('[acf field="title_en"]');
+        }
+}
+
+//Απόκρυψη τίτλου με CSS
+.woocommerce-loop-product__title {
+display: none;
+}
+
+//Διαγραφή H2 για ΕΣΠΑ ESHOP
+function woocommerce_template_loop_product_title() {
+    ?><span class="<?php echo esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ); ?>">
+    <?php the_title(); ?></span><?php
+}
+
+
+
